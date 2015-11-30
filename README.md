@@ -1,6 +1,6 @@
 # Omniauth::Salesloft
 
-TODO: Write a gem description
+An OmniAuth Strategy for Connecting to the SalesLoft Public API
 
 ## Installation
 
