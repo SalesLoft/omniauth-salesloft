@@ -5,7 +5,7 @@ require 'omniauth-salesloft/version'
 
 Gem::Specification.new do |spec|
   spec.name          = "omniauth-salesloft"
-  spec.version       = Omniauth::Salesloft::VERSION
+  spec.version       = OmniAuth::Salesloft::VERSION
   spec.authors       = ["Mike Sandt"]
   spec.email         = ["michael.sandt@gmail.com"]
   spec.summary       = %q{OmniAuth strategy for SalesLoft}

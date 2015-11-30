@@ -1,6 +1,6 @@
 require "omniauth-oauth2"
 
-module Omniauth
+module OmniAuth
   module Strategies
     module Salesloft < OmniAuth::Strategies::OAuth2
       # Your code goes here...
