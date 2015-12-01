@@ -2,7 +2,7 @@ require "omniauth-oauth2"
 
 module OmniAuth
   module Strategies
-    module Salesloft < OmniAuth::Strategies::OAuth2
+    class SalesLoft < OmniAuth::Strategies::OAuth2
       option :name, :salesloft
 
       option :client_options, {
@@ -17,7 +17,7 @@ module OmniAuth
       end
 
       def raw_info
-        @raw_info ||= access_token.get("/api/v1/me.json")
+        @raw_info ||= access_token.get("https://sdr.salesloft.com/api/v1/me.json").parsed
       end
     end
   end
