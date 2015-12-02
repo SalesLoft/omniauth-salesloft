@@ -6,8 +6,9 @@ module OmniAuth
       option :name, :salesloft
 
       option :client_options, {
-        :site => "https://localhost.salesloft.com:9898",
-        :authorize_url => "/oauth/authorize"
+        :site => "https://sdr.salesloft.com",
+        :authorize_url => "https://accounts.salesloft.com/oauth/authorize",
+        :token_url => "https://accounts.salesloft.com/oauth/token"
       }
 
       uid { raw_info["id"] }
@@ -17,7 +18,7 @@ module OmniAuth
       end
 
       def raw_info
-        @raw_info ||= access_token.get("https://localhost.salesloft.com:9999/public_api/v1/me.json").parsed
+        @raw_info ||= access_token.get("/public_api/v1/me.json").parsed
       end
     end
   end

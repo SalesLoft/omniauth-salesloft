@@ -24,11 +24,15 @@ describe OmniAuth::Strategies::SalesLoft do
 
   describe "#client_options" do
     it "has the correct site" do
-      expect(subject.client.site).to eq("https://accounts.salesloft.com")
+      expect(subject.client.site).to eq("https://sdr.salesloft.com")
     end
 
     it "has the correct authorize url" do
       expect(subject.client.authorize_url).to eq("https://accounts.salesloft.com/oauth/authorize")
+    end
+
+    it "has the correct token url" do
+      expect(subject.client.token_url).to eq("https://accounts.salesloft.com/oauth/token")
     end
   end
 
@@ -41,6 +45,11 @@ describe OmniAuth::Strategies::SalesLoft do
     it "should allow overrides of the authorize_url" do
       @options = {:client_options => {'authorize_url' => 'https://example.com'}}
       expect(subject.client.options[:authorize_url]).to eq('https://example.com')
+    end
+
+    it "should allow overrides of the token url" do
+      @options = {:client_options => {'token_url' => 'https://example.com'}}
+      expect(subject.client.options[:token_url]).to eq('https://example.com')
     end
   end
 end
