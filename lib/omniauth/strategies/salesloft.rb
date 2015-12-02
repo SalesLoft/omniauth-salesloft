@@ -6,7 +6,7 @@ module OmniAuth
       option :name, :salesloft
 
       option :client_options, {
-        :site => "https://accounts.salesloft.com",
+        :site => "https://localhost.salesloft.com:9898",
         :authorize_url => "/oauth/authorize"
       }
 
@@ -17,8 +17,10 @@ module OmniAuth
       end
 
       def raw_info
-        @raw_info ||= access_token.get("https://sdr.salesloft.com/api/v1/me.json").parsed
+        @raw_info ||= access_token.get("https://localhost.salesloft.com:9999/public_api/v1/me.json").parsed
       end
     end
   end
 end
+
+OmniAuth.config.add_camelization "salesloft", "SalesLoft"
