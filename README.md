@@ -1,6 +1,6 @@
 # Omniauth::Salesloft
 
-An OmniAuth Strategy for Connecting to the SalesLoft Public API
+An OmniAuth Strategy for Connecting to the SalesLoft Public API.
 
 ## Installation
 
@@ -15,10 +15,6 @@ And then execute:
 Or install it yourself as:
 
     $ gem install omniauth-salesloft
-
-## Usage
-
-TODO: Write usage instructions here
 
 ## Contributing
 
