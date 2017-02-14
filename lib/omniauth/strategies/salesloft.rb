@@ -6,7 +6,7 @@ module OmniAuth
       option :name, :salesloft
 
       option :client_options, {
-        :site => "https://sdr.salesloft.com",
+        :site => "https://app.salesloft.com",
         :authorize_url => "https://accounts.salesloft.com/oauth/authorize",
         :token_url => "https://accounts.salesloft.com/oauth/token"
       }
