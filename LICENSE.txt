@@ -1,4 +1,4 @@
-Copyright (c) 2015 Mike Sandt
+Copyright (c) 2015 SalesLoft
 
 MIT License
 
