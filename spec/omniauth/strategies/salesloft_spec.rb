@@ -24,7 +24,7 @@ describe OmniAuth::Strategies::SalesLoft do
 
   describe "#client_options" do
     it "has the correct site" do
-      expect(subject.client.site).to eq("https://app.salesloft.com")
+      expect(subject.client.site).to eq("https://api.salesloft.com")
     end
 
     it "has the correct authorize url" do
