@@ -1,0 +1,56 @@
+name: Salesloft
+on:
+  push:
+    branches: [ master ]
+    tags: [ 'v*' ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  rspec:
+    runs-on: ubuntu-latest
+    env:
+      BUNDLE_GEMS__SALESLOFT__COM: ${{ secrets.SL_GEMSERVER_URL }}
+    strategy:
+      fail-fast: false
+      matrix:
+        ruby: [ 2.7, "3.0", 3.2]
+    name: rspec ruby-${{ matrix.ruby }}
+
+    steps:
+    - uses: actions/checkout@v2
+    - uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: ${{ matrix.ruby }}
+        working-directory: ./ruby
+        bundler-cache: true
+
+    - name: Rspec
+      working-directory: ./ruby
+      run: bundle exec rspec
+  
+  rspecall:
+    if: ${{ always() }}
+    runs-on: ubuntu-latest
+    name: RSpec (matrix)
+    needs: [rspec]
+    steps:
+      - name: Check status of all RSpec runs
+        if: ${{ needs.rspec.result != 'success' }}
+        run: exit 1
+
+  publish:
+    name: Publish Gem
+    needs:
+      - rspec
+    if: startsWith(github.ref, 'refs/tags/v')
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Clone Repo
+        uses: actions/checkout@v2
+
+      - name: Publish Gem
+        uses: SalesLoft/publish-gem-action@v1.1.0
+        with:
+          gem_repo_url: ${{ secrets.GEM_REPO_UPLOAD_URL }}
+          working_directory: ./ruby
