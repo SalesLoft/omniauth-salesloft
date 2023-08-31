@@ -9,37 +9,10 @@ jobs:
   rspec:
     name: RSpec
     runs-on: ubuntu-latest
-    services:
-      postgres:
-        image: postgres:10.10
-        env:
-          POSTGRES_USER: postgres
-          POSTGRES_PASSWORD: postgres
-          POSTGRES_DB: postgres
-        ports:
-          - 5432:5432
-        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
     strategy:
       fail-fast: false
       matrix:
-        include:
-          - rails: "7.0"
-            ruby: 3.2
-          - rails: 6.1
-            ruby: 2.7
-          - rails: 6.1
-            ruby: 3.2
-
-          - rails: 5.2
-            ruby: 2.7
-
-
-    env:
-      RAILS_ENV: test
-      DATABASE_URL: postgresql://postgres:postgres@localhost/postgres
-      BUNDLE_GEMS__SALESLOFT__COM: ${{ secrets.SL_GEMSERVER_URL}}
-      MTSR_RAILS_VERSION: rails_${{ matrix.rails }}
-      DISPLAY: ":99.0"
+        ruby: [ 2.7, "3.0", 3.2]
 
     steps:
       - uses: actions/checkout@v3
@@ -59,7 +32,15 @@ jobs:
       - name: Run Tests
         run: bundle exec rspec
 
-
+  rspecall:
+    if: ${{ always() }}
+    runs-on: ubuntu-latest
+    name: RSpec (matrix)
+    needs: [rspec]
+    steps:
+      - name: Check status of all RSpec runs
+        if: ${{ needs.rspec.result != 'success' }}
+        run: exit 1
   publish:
     name: Publish Gem
     needs: rspec
